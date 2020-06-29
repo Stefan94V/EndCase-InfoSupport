@@ -13,7 +13,10 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Mvc;
+using HttpDeleteAttribute = System.Web.Mvc.HttpDeleteAttribute;
 using HttpGetAttribute = System.Web.Http.HttpGetAttribute;
+using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
+using HttpPutAttribute = System.Web.Mvc.HttpPutAttribute;
 
 namespace CursusAdministratie.Api.Controllers
 {
@@ -35,7 +38,7 @@ namespace CursusAdministratie.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> GetAll()
+        public async Task<IHttpActionResult> GetAllAsync()
         {
             var cursussen = await _cursusService.GetAllAsync();
 
@@ -51,7 +54,7 @@ namespace CursusAdministratie.Api.Controllers
 
 
         [HttpGet]
-        public async Task<IHttpActionResult> GetById(int id)
+        public async Task<IHttpActionResult> GetByIdAsync(int id)
         {
             var cursus = await _cursusService.GetAsync(id);
 
@@ -63,6 +66,55 @@ namespace CursusAdministratie.Api.Controllers
             var dto = Mapper.Map<CursusToDetailsDto>(cursus);
 
             return Ok(dto);
+        }
+
+        [HttpPost]
+        public async Task<IHttpActionResult> CreateAsync([FromBody] CursusToCreateDto dto)
+        {
+            var cursusFromDto = Mapper.Map<Cursus>(dto);
+
+            var cursus = await _cursusService.CreateAsync(cursusFromDto);
+
+            if (cursus == null)
+            {
+                return BadRequest("Updaten is mislukt");
+            }
+
+            var resultDto = Mapper.Map<CursusToDetailsDto>(cursus);
+
+            return Created(resultDto.Id.ToString(), resultDto);
+        }
+
+
+        [HttpPut]
+        public async Task<IHttpActionResult> UpdateAsync([FromBody] CursusToUpdateDto dto)
+        {
+            var cursusFromDto = Mapper.Map<Cursus>(dto);
+
+            var cursus = await _cursusService.UpdateAsync(cursusFromDto);
+
+            if (cursus == null)
+            {
+                return BadRequest("Geen cursus gevonden");
+            }
+
+
+            var resultDto = Mapper.Map<CursusToDetailsDto>(cursus);
+
+            return Ok(resultDto);
+        }
+
+        [HttpDelete]
+        public async Task<IHttpActionResult> DeleteAsync(int id)
+        {
+            var isRemoved = await _cursusService.RemoveAsync(id);
+
+            if (!isRemoved)
+            {
+                return BadRequest("Cursus verwijderd");
+            }
+
+            return Ok();
         }
     }
 }

@@ -64,7 +64,9 @@
     <Compile Include="Services\Implementations\CursusService.cs" />
     <Compile Include="Services\Interfaces\ICursistService.cs" />
     <Compile Include="Services\Interfaces\ICursusService.cs" />
+    <Compile Include="ViewModels\Cursus\CursusToCreateDto.cs" />
     <Compile Include="ViewModels\Cursus\CursusToDetailsDto.cs" />
+    <Compile Include="ViewModels\Cursus\CursusToUpdateDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

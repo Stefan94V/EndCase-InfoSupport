@@ -13,6 +13,8 @@ namespace CursusAdministratie.Api
         public AutoMapperProfiles()
         {
             CreateMap<CursusToDetailsDto, Cursus>();
+            CreateMap<CursusToCreateDto, Cursus>();
+            CreateMap<CursusToUpdateDto, Cursus>();
         }
     }
 }
