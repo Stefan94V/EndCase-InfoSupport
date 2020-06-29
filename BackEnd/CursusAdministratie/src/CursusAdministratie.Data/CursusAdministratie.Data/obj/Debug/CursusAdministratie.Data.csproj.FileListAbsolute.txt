@@ -1,0 +1,14 @@
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\bin\Debug\CursusAdministratie.Data.dll.config
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\bin\Debug\CursusAdministratie.Data.dll
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\bin\Debug\CursusAdministratie.Data.pdb
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\bin\Debug\EntityFramework.dll
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\bin\Debug\EntityFramework.xml
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.csproj.CoreCompileInputs.cache
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.csproj.CopyComplete
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.dll
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.pdb
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.csprojAssemblyReference.cache
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.Migrations.InitialCreate.resources
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.csproj.GenerateResource.cache

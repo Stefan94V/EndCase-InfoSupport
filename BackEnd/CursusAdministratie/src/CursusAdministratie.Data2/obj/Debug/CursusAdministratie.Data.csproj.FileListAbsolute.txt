@@ -1,0 +1,2 @@
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.csprojAssemblyReference.cache
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.csproj.CoreCompileInputs.cache
