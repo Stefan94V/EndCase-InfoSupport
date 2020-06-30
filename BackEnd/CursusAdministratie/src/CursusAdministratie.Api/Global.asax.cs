@@ -21,5 +21,10 @@ namespace CursusAdministratie.Api
             AutoMapper.Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfiles>());
             UnityConfig.RegisterComponents();
         }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
+        }
     }
 }

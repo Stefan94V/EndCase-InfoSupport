@@ -23,15 +23,26 @@ namespace CursusAdministratie.Data.Services.Implementations
             return cursus;
         }
 
+        public async Task<List<Cursus>> CreateRangeAsync(List<Cursus> cursussen)
+        {
+            _context.Cursussen.AddRange(cursussen);
+
+            await _context.SaveChangesAsync();
+
+            return cursussen;
+        }
+
         public async Task<List<Cursus>> GetAllAsync()
         {
             return await _context.Cursussen
+                .Include(x => x.CursusInstanties)
                 .ToListAsync();
         }
 
         public async Task<Cursus> GetAsync(int id)
         {
             return await _context.Cursussen
+                .Include(x => x.CursusInstanties)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 

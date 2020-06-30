@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.green-snackbar {
+  background: #00960d;
+}
+.blue-snackbar {
+  background: #2196F3;
+}
+.red-snackbar {
+  background: #db1600;
+}
+.orange-snackbar {
+  background: #e07b39;
+}
+.spinner {
+  margin: 0 auto;
+}

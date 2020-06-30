@@ -1,25 +1,32 @@
 ﻿using AutoMapper;
+using CursusAdministratie.Api.Cors;
 using CursusAdministratie.Data;
 using CursusAdministratie.Data.Models;
 using CursusAdministratie.Data.Services.Implementations;
 using CursusAdministratie.Data.Services.Interfaces;
 using CursusAdministratie.Data.ViewModels.Cursus;
 using Microsoft.Ajax.Utilities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Mvc;
+using ActionNameAttribute = System.Web.Http.ActionNameAttribute;
 using HttpDeleteAttribute = System.Web.Mvc.HttpDeleteAttribute;
 using HttpGetAttribute = System.Web.Http.HttpGetAttribute;
 using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
 using HttpPutAttribute = System.Web.Mvc.HttpPutAttribute;
+using RouteAttribute = System.Web.Mvc.RouteAttribute;
 
 namespace CursusAdministratie.Api.Controllers
 {
+    [AllowCrossSite]
     public class CursussenController : ApiController
     {
         private readonly ICursusService _cursusService;
@@ -68,7 +75,7 @@ namespace CursusAdministratie.Api.Controllers
             return Ok(dto);
         }
 
-        [HttpPost]
+       
         public async Task<IHttpActionResult> CreateAsync([FromBody] CursusToCreateDto dto)
         {
             var cursusFromDto = Mapper.Map<Cursus>(dto);
@@ -84,6 +91,9 @@ namespace CursusAdministratie.Api.Controllers
 
             return Created(resultDto.Id.ToString(), resultDto);
         }
+
+        
+       
 
 
         [HttpPut]

@@ -12,3 +12,5 @@ C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdmin
 C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.csprojAssemblyReference.cache
 C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.Migrations.InitialCreate.resources
 C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.csproj.GenerateResource.cache
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.Migrations.kleineaanpassing.resources
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.Migrations.InstantieChange.resources

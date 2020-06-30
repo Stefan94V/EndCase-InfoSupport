@@ -9,6 +9,7 @@ namespace CursusAdministratie.Data.Services.Interfaces
         Task<Cursus> GetAsync(int id);
         Task<List<Cursus>> GetAllAsync();
         Task<Cursus> CreateAsync(Cursus cursus);
+        Task<List<Cursus>> CreateRangeAsync(List<Cursus> cursussen);
         Task<Cursus> UpdateAsync(Cursus cursus);
         Task<bool> RemoveAsync(int id);
     }

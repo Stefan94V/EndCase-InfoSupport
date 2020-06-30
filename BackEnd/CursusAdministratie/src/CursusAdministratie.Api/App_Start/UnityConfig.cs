@@ -53,6 +53,7 @@ namespace CursusAdministratie.Api
 
             container.RegisterType<ICursusService, CursusService>();
             container.RegisterType<ICursistService, CursistService>();
+            container.RegisterType<ICursusInstantieService, CursusInstantieService>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

@@ -10,5 +10,7 @@ namespace CursusAdministratie.Data.ViewModels.Cursus
     {
         public string Titel { get; set; }
         public string Code { get; set; }
+        public int Duur { get; set; }
+
     }
 }

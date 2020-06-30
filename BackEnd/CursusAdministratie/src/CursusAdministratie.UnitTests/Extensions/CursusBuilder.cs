@@ -16,7 +16,7 @@ namespace CursusAdministratie.UnitTests.Extensions
                 Id = id,
                 Code = code,
                 Titel = titel,
-                Cursisten = new List<CursusInstantie>(),
+                CursusInstanties = new List<CursusInstantie>(),
             };
         }
     }

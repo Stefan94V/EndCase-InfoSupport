@@ -55,15 +55,28 @@
     <Compile Include="Migrations\202006291021410_InitialCreate.Designer.cs">
       <DependentUpon>202006291021410_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006291634101_kleineaanpassing.cs" />
+    <Compile Include="Migrations\202006291634101_kleineaanpassing.Designer.cs">
+      <DependentUpon>202006291634101_kleineaanpassing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006300650216_InstantieChange.cs" />
+    <Compile Include="Migrations\202006300650216_InstantieChange.Designer.cs">
+      <DependentUpon>202006300650216_InstantieChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cursist.cs" />
     <Compile Include="Models\Cursus.cs" />
     <Compile Include="Models\CursusInstantie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Implementations\CursistService.cs" />
+    <Compile Include="Services\Implementations\CursusInstantieService.cs" />
     <Compile Include="Services\Implementations\CursusService.cs" />
     <Compile Include="Services\Interfaces\ICursistService.cs" />
+    <Compile Include="Services\Interfaces\ICursusInstantieService.cs" />
     <Compile Include="Services\Interfaces\ICursusService.cs" />
+    <Compile Include="ViewModels\CursusInstantie\CursusInstantieToDetailsDto.cs" />
+    <Compile Include="ViewModels\CursusInstantie\CursusInstantieUploadedResultSetDto.cs" />
+    <Compile Include="ViewModels\CursusInstantie\CursusInstantieUploadResultSet.cs" />
     <Compile Include="ViewModels\Cursus\CursusToCreateDto.cs" />
     <Compile Include="ViewModels\Cursus\CursusToDetailsDto.cs" />
     <Compile Include="ViewModels\Cursus\CursusToUpdateDto.cs" />
@@ -75,6 +88,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202006291021410_InitialCreate.resx">
       <DependentUpon>202006291021410_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006291634101_kleineaanpassing.resx">
+      <DependentUpon>202006291634101_kleineaanpassing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006300650216_InstantieChange.resx">
+      <DependentUpon>202006300650216_InstantieChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
