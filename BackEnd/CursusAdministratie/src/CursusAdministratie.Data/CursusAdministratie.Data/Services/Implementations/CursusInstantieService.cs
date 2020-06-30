@@ -70,7 +70,7 @@ namespace CursusAdministratie.Data.Services.Implementations
         public async Task<List<CursusInstantie>> GetAllAsync()
         {
             return await _context.CursusInstanties
-                .OrderBy(x => x.StartDatum)
+                .OrderByDescending(x => x.StartDatum)
                 .Include(x => x.Cursisten)
                 .ToListAsync();
         }

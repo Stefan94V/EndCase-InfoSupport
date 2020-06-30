@@ -10,5 +10,6 @@ namespace CursusAdministratie.Data.ViewModels.CursusInstantie
     {
         public List<CursusInstantieToDetailsDto> Uploaded { get; set; }
         public List<CursusInstantieToDetailsDto> Duplicates { get; set; }
+        public string Message { get; set; }
     }
 }

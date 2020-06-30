@@ -4,17 +4,11 @@ using CursusAdministratie.Data;
 using CursusAdministratie.Data.Models;
 using CursusAdministratie.Data.Services.Implementations;
 using CursusAdministratie.Data.Services.Interfaces;
-using CursusAdministratie.Data.ViewModels.Cursus;
 using CursusAdministratie.Data.ViewModels.CursusInstantie;
-using Microsoft.Ajax.Utilities;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -54,11 +48,11 @@ namespace CursusAdministratie.Api.Controllers
                         lines.Add(line);
                 }
 
-                var cursussen = _linesToCursussen(lines.ToArray());
+                var lineToCursusModel = _linesToCursussen(lines.ToArray());
 
-                if (cursussen.Any())
+                if (lineToCursusModel.Cursussen.Any())
                 {
-                    var result = await _cursusInstantieService.CreateRangeAsync(cursussen);
+                    var result = await _cursusInstantieService.CreateRangeAsync(lineToCursusModel.Cursussen);
 
                     var uploadedDtos = Mapper.Map<List<CursusInstantieToDetailsDto>>(result.Uploaded);
                     var duplicateDtos = Mapper.Map<List<CursusInstantieToDetailsDto>>(result.Duplicate);
@@ -66,55 +60,128 @@ namespace CursusAdministratie.Api.Controllers
                     return Ok(new CursusInstantieUploadedResultSetDto
                     {
                         Uploaded = uploadedDtos,
-                        Duplicates = duplicateDtos
+                        Duplicates = duplicateDtos,
+                        Message = lineToCursusModel.Message,
+                    });
+                }
+                else
+                {
+                    return Ok(new CursusInstantieUploadedResultSetDto
+                    {
+                        Uploaded = new List<CursusInstantieToDetailsDto>(),
+                        Duplicates = new List<CursusInstantieToDetailsDto>(),
+                        Message = lineToCursusModel.Message,
                     });
                 }
             }
             return BadRequest();
         }
 
-        private static List<CursusInstantie> _linesToCursussen(string[] lines)
+        /// <summary>
+        /// 
+        /// LineCount:
+        /// 0:Titel
+        /// 1:CursusCode
+        /// 2:Duur
+        /// 3:StartDatum
+        /// 5:Leeg
+        /// 
+        /// </summary>
+        /// <param name="lines"></param>
+        /// <returns></returns>
+        private static LineToCursusModel _linesToCursussen(string[] lines)
         {
-            var cursussen = new List<CursusInstantie>();
-            var currentCursus = new CursusInstantie();
-            var newCursus = true;
+            var cursussen = new List<CursusInstantie>(); // Bevat alle gevonden cursusinstanties
+            var currentCursus = new CursusInstantie(); // Nieuwe cursus instantie dat aangevuld wordt en vernieuwd na elke iteratie
 
+            var newCursus = true; // Check of een nieuwe cursusinstantie nodig is
+            var errorsMessages = ""; // String met error messages
+
+            // Counters
+            var stop = false; // Check voor en foutmelding, indien aanwezig stopt het met verder zoeken
+            var lineCount = 0; // Check in welke volgorde van het format het momenteel is
+            var rijnummer = 1; // Check in welke rij de counter is van het document zelf
 
             foreach (var line in lines)
             {
+
                 var words = line.Split(':');
-                if(words.Length == 2)
+                // Words moeten deelbaar zijn, geen foutmelding bevatten en lineCount mag niet 4 zijn (dat is een lege rij)
+                if (words.Length == 2 && stop == false && lineCount != 4)
                 {
-                    if (words[0].Equals("Titel"))
+                    // Check voor de Titel
+                    if (words[0].Equals("Titel")) 
                     {
-                        currentCursus = new CursusInstantie();
-                        currentCursus.Cursus = new Cursus
+                        if (lineCount == 0) 
                         {
-                            Titel = words[1]
-                        };
-                        newCursus = false;
-                    }else if(words[0].Equals("Cursuscode") && newCursus == false)
-                    {
-                        currentCursus.Cursus.Code = words[1];
+                            currentCursus = new CursusInstantie();
+                            currentCursus.Cursus = new Cursus
+                            {
+                                Titel = words[1]
+                            };
+                            newCursus = false;
+                            lineCount++;
+                        }
+                        else
+                        {
+                            stop = true;
+                            errorsMessages = $"|Titel staat op de veerkerde volgorde op rij: {rijnummer}|";
+                        }
+
                     }
+                    // Check voor de Cursuscode
+                    else if (words[0].Equals("Cursuscode") && newCursus == false)
+                    {
+                        if (lineCount == 1)
+                        {
+                            currentCursus.Cursus.Code = words[1];
+                            lineCount++;
+                        }
+                        else
+                        {
+                            stop = true;
+                            errorsMessages = $"|CursusCode staat op de veerkerde volgorde op rij: {rijnummer}|";
+                        }
+
+                    }
+                    // Check voor de Duur
                     else if (words[0].Equals("Duur") && newCursus == false)
                     {
-                        var duurSplit = words[1].Split(' ');
-                        int duur;
-                        if(duurSplit.Length > 0)
+                        // Waarde moet in het juiste formaat zijn {nummer: Dagen}
+                        if (words[1].Contains("dagen") )
                         {
-                            int.TryParse(duurSplit[1], out duur);
-                            if(duur != 0)
+                            var duurSplit = words[1].Split(' ');
+                            int duur;
+                            if (duurSplit.Length > 0)
                             {
-                                currentCursus.Cursus.Duur = duur;
+                                int.TryParse(duurSplit[1], out duur);
+                                if (duur != 0)
+                                {
+                                    if (lineCount == 2)
+                                    {
+                                        currentCursus.Cursus.Duur = duur;
+                                        lineCount++;
+                                    }
+                                    else
+                                    {
+                                        stop = true;
+                                        errorsMessages = $"|Duur staat op de verkeerde volgorde op rij: {rijnummer}|";
+                                    }
+
+                                }
                             }
                         }
-                        
+                        else
+                        {
+                            stop = true;
+                            errorsMessages = $"|Duur bevat geen dagen op rij waarde op rij: {rijnummer}|";
+                        }
                     }
+                    // Check voor de startdatum
                     else if (words[0].Equals("Startdatum") && newCursus == false)
                     {
                         newCursus = true;
-                        if(!string.IsNullOrWhiteSpace(currentCursus.Cursus.Code) && !string.IsNullOrWhiteSpace(currentCursus.Cursus.Titel))
+                        if (!string.IsNullOrWhiteSpace(currentCursus.Cursus.Code) && !string.IsNullOrWhiteSpace(currentCursus.Cursus.Titel) && !string.IsNullOrWhiteSpace(currentCursus.Cursus.Titel))
                         {
                             //var selDate = Convert.ToDateTime(words[1]);
 
@@ -123,22 +190,100 @@ namespace CursusAdministratie.Api.Controllers
                             int day;
                             int year;
 
-                            int.TryParse(dateSplit[0], out day);
-                            int.TryParse(dateSplit[1], out month);
-                            int.TryParse(dateSplit[2], out year);
-
-
-                            if ((month != 0 && month < 13) && (day !=0 && day < 32) && year != 0)
+                            // Check of het in de juiste volgorde staan dd/MM/yyyy
+                            if (dateSplit.Length != 1)
                             {
-                                currentCursus.StartDatum = new DateTime(year: year, month: month, day: day);
-                                cursussen.Add(currentCursus);
+                                int.TryParse(dateSplit[0], out day);
+                                int.TryParse(dateSplit[1], out month);
+                                int.TryParse(dateSplit[2], out year);
+
+                                // Check of de dagen op juiste volgorde staan en/of de datums correct zijn
+                                if ((month != 0 && month < 13) && (day != 0 && day < 32) && year != 0)
+                                {
+                                    if (lineCount == 3)
+                                    {
+                                        currentCursus.StartDatum = new DateTime(year: year, month: month, day: day);
+                                        cursussen.Add(currentCursus);
+                                        lineCount++;
+                                    }
+                                    else
+                                    {
+                                        stop = true;
+                                        errorsMessages = $"|Strartdatum staat op de verkeerde volgorde op rij: {rijnummer}|";
+                                    }
+
+                                }
+                                else
+                                {
+                                    errorsMessages += $"|Incorrecte datum input formaat| op rij: {rijnummer}|";
+                                    stop = true;
+                                }
                             }
+                            else
+                            {
+                                errorsMessages += $"|Startdatum is niet in het dd/MM/YYYY formaat| op rij: {rijnummer}|";
+                                stop = true;
+                            }
+                        }
+                        else
+                        {
+                            if (string.IsNullOrWhiteSpace(currentCursus.Cursus.Code))
+                            {
+                                errorsMessages += $" |Cursus Code ontbreekt| op rij: {rijnummer}|";
+                                stop = true;
+                            }
+                            else if (string.IsNullOrWhiteSpace(currentCursus.Cursus.Titel))
+                            {
+                                errorsMessages += $" |Cursus Titel ontbreekt| op rij: {rijnummer}|";
+                                stop = true;
+                            }
+                            else if (string.IsNullOrWhiteSpace(currentCursus.Cursus.Duur.ToString()))
+                            {
+                                errorsMessages += $" |Cursus Duur ontbreekt| op rij: {rijnummer}|";
+                                stop = true;
+                            }
+
+                            stop = true;
                         }
                     }
                 }
+                // Check voor de white space
+                else if (lineCount == 4 && stop == false)
+                {
+                    if (words.Length == 1) // Lege veld is aanwezig
+                    {
+                        lineCount = 0;
+                    }
+                    else // Geen lege veld aanwezig
+                    {
+                        stop = true;
+                        errorsMessages = $"|Lege rij ontbreekt op rij: {rijnummer}|";
+                    }
+                }
+                else
+                {
+                    // Gaat niet meer verder met data ophalen
+                    if (stop == true)
+                        return new LineToCursusModel
+                        {
+                            Message = errorsMessages,
+                            Cursussen = new List<CursusInstantie>()
+                        };
+                }
+                rijnummer++;
             }
-            return cursussen;
-           
+            return new LineToCursusModel
+            {
+                Cursussen = cursussen,
+                Message = errorsMessages
+            };
+
+        }
+
+        private class LineToCursusModel
+        {
+            public string Message { get; set; }
+            public List<CursusInstantie> Cursussen { get; set; }
         }
 
 

@@ -4,6 +4,8 @@ import { CursusInstantieService } from 'src/app/core/services/cursusInstantie/cu
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { CursusService } from 'src/app/core/services/cursus/cursus.service';
 import { AlertService } from 'src/app/core/services/alert/alert.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cursus-list',
@@ -12,12 +14,16 @@ import { AlertService } from 'src/app/core/services/alert/alert.service';
 })
 export class CursusListComponent implements OnInit {
   displayedColumns: string[] = ['startDatum', 'duur', 'titel', 'cursisten'];
+  conceptColumns: string[] = ['startDatum', 'duur', 'titel'];
   cursussen: CursusInstantie[];
+  conceptCursussen: CursusInstantie[] = [];
+  component = this;
 
   cursussenForm: FormGroup;
 
   isLoading = true;
   openFileUploader = false;
+  showConcept = false;
 
   constructor(
     private cursusInstantieService: CursusInstantieService,
@@ -68,18 +74,33 @@ export class CursusListComponent implements OnInit {
     };
   }
 
+  loadConcept(cursussen: CursusInstantie[]) {
+    this.conceptCursussen = cursussen;
+    this.showConcept = true;
+  }
 
-  upload(files: File[]) {
-    this.cursusService.uploadCursus(files).subscribe((cs: {
-      duplicates: CursusInstantie[],
-      uploaded: CursusInstantie[]
-    }) => {
-      this.cursussen = this.cursussen.concat(cs.uploaded);
-      this.alerService.successMessage(`${cs.uploaded.length} toegevoegd, ${cs.duplicates.length} duplicaten gevonden`);
-    });
+  uploadConcept() {
+
   }
 
 
+  upload(files: File[]) {
+    this.openFileUploader = false;
+    this.isLoading = true;
+    this.cursusService.uploadCursus(files).subscribe((cs: {
+      duplicates: CursusInstantie[],
+      uploaded: CursusInstantie[],
+      message: string
+    }) => {
+      this.cursussen = this.cursussen.concat(cs.uploaded);
+      this.alerService.successMessage(`${cs.uploaded.length} toegevoegd, ${cs.duplicates.length} duplicaten gevonden`);
+      if(cs.message != ''){
+      this.alerService.errorMessage(`${cs.message}`);
+      }
+      this.isLoading = false;
+    });
+
+  }
 
 
 }
