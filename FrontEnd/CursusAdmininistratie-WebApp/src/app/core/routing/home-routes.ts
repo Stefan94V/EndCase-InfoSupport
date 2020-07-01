@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { HomeDefaultComponent } from '../../shared/layout/home/home-default/home-default.component';
 import { CursusComponent } from '../../modules/cursus/cursus/cursus.component';
+import { CursusWeekoverviewComponent } from 'src/app/modules/cursus/cursus-weekoverview/cursus-weekoverview.component';
+import { CursusListComponent } from 'src/app/modules/cursus/cursus-list/cursus-list.component';
 
 
 export const homeRoutes: Routes = [
@@ -9,12 +11,15 @@ export const homeRoutes: Routes = [
         path: '',
         component: HomeDefaultComponent,
         children: [
-            {path: 'cursussen', component: CursusComponent },
-            // {path: 'workschedule', component: WorkscheduleCreateComponent},
-            // {path: 'registerCompany', component: CompanyRegisterComponent},
-            // {path: 'locationRegister', component: LocationRegisterComponent},
-            // {path: 'employees', component: EmployeesListComponent},
-
+            {
+              path: 'cursus',
+              component: CursusComponent,
+              children: [
+              {path: 'weekoverzicht', component: CursusWeekoverviewComponent },
+              {path: 'weekoverzicht/:year', component: CursusWeekoverviewComponent },
+              {path: 'weekoverzicht/:year/:week', component: CursusWeekoverviewComponent },
+              {path: 'cursussen', component: CursusListComponent },
+            ]},
         ]
     },
 ];

@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,13 +15,15 @@ import { CursusService } from '../app/core/services/cursus/cursus.service';
 import { CursusModule } from '../app/modules/cursus/cursus.module';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AlertService } from '../app/core/services/alert/alert.service';
+import { WeeknumberPipe } from '../app/shared/pipes/weeknumber.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -32,7 +36,8 @@ import { AlertService } from '../app/core/services/alert/alert.service';
   ],
   providers: [
     CursusService,
-    AlertService
+    AlertService,
+    WeeknumberPipe
   ],
   bootstrap: [AppComponent]
 })

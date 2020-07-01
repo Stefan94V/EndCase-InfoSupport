@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card style="margin-bottom: 20px;">
   <mat-card-header>
     <mat-card-title>Lijst van cursussen</mat-card-title>
   </mat-card-header>
@@ -7,6 +7,7 @@
       <mat-progress-spinner class="spinner"
       mode="indeterminate" color="primary" *ngIf="isLoading" >
     </mat-progress-spinner>
+
 
     <!-- TABLE -->
     <table mat-table [dataSource]="cursussen" class="mat-elevation-z8 cursussen-table" *ngIf="!isLoading">
@@ -45,7 +46,7 @@
 </mat-card>
 
 <mat-divider></mat-divider>
-<mat-card *ngIf="openFileUploader">
+<mat-card *ngIf="openFileUploader" style="margin-bottom:  100px;">
   <mat-card-header>
   <mat-card-title>Upload nieuwe cursussen</mat-card-title>
   </mat-card-header>
@@ -55,42 +56,5 @@
       <label for=FileUploader ><input id=FileUploader type="file" multiple="false" (change)="upload($event.target.files)" /></label>
       <button class="" mat-raised-button type="submit" color="warn" [disabled]="!cursussenForm.valid">Upload</button>
     </form>
-  </mat-card-content>
-</mat-card>
-
-
-<mat-card *ngIf="showConcept">
-  <mat-card-header>
-    <mat-card-title>CONCEPT</mat-card-title>
-  </mat-card-header>
-    <mat-card-content>
-
-    <!-- TABLE -->
-    <table mat-table [dataSource]="conceptCursussen" class="mat-elevation-z8 cursussen-table" >
-      <!-- Start Column -->
-      <ng-container matColumnDef="startDatum">
-        <th mat-header-cell *matHeaderCellDef> Start </th>
-        <td mat-cell *matCellDef="let element"> {{element.startDatum | date: 'dd/MM/yyy'}}</td>
-      </ng-container>
-
-      <!-- Code Column -->
-      <ng-container matColumnDef="duur">
-        <th mat-header-cell *matHeaderCellDef> Duur </th>
-        <td mat-cell *matCellDef="let element"> {{element.duur}} </td>
-      </ng-container>
-
-      <!-- Titel Column -->
-      <ng-container matColumnDef="titel">
-        <th mat-header-cell *matHeaderCellDef> Titel </th>
-        <td mat-cell *matCellDef="let element"> {{element.titel}} </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="conceptColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: conceptColumns;"></tr>
-    </table>
-  <button class="add-files-button" mat-raised-button type="submit" color="warn"
-    (click)="uploadConcept()"
-  >Voeg Toe</button>
-
   </mat-card-content>
 </mat-card>

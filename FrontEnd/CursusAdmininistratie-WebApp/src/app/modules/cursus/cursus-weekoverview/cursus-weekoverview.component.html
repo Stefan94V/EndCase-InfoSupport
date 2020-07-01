@@ -1,0 +1,76 @@
+<mat-card style="margin-bottom: 20px;">
+
+  <mat-card-content>
+    <!-- <h3 >Weekoverzicht week <b>{{selectedDate | weeknumber}}</b> jaar <b>{{selectedYear}}</b></h3> -->
+      <div class="weeknumber-section" >
+        <div class="example-button-container">
+          <button mat-mini-fab aria-label="Example icon button with a home icon" (click)="previousWeekToggled()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+          </button>
+          <div class="weekText">Weekoverzicht week <b>{{selectedWeek}}</b> jaar <b>{{selectedYear}}</b></div>
+         <button mat-raised-button (click)="picker.open()">Verander Week</button>
+          <button mat-mini-fab aria-label="Example icon button with a home icon" (click)="nextWeekToggled()" >
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+        </div>
+        <div>
+          <div style="display:none">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="picker" value="{{selectedDate}}" (dateChange)="changeDateToggled('change', $event)">
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      </div>
+
+      </div>
+  </mat-card-content>
+  </mat-card>
+
+
+  <mat-card style="margin-bottom: 20px;">
+    <mat-card-header>
+      <mat-card-title>Weekoverzicht</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <mat-progress-spinner class="spinner"
+        mode="indeterminate" color="primary" *ngIf="isLoading" >
+      </mat-progress-spinner>
+      <!-- TABLE -->
+      <table mat-table [dataSource]="cursussen" class="mat-elevation-z8 cursussen-table" *ngIf="!isLoading">
+        <!-- Start Column -->
+        <ng-container matColumnDef="startDatum">
+          <th mat-header-cell *matHeaderCellDef> Start </th>
+          <td mat-cell *matCellDef="let element"> {{element.startDatum | date: 'dd/MM/yyy'}}</td>
+        </ng-container>
+
+        <!-- Code Column -->
+        <ng-container matColumnDef="duur">
+          <th mat-header-cell *matHeaderCellDef> Duur </th>
+          <td mat-cell *matCellDef="let element"> {{element.duur}} </td>
+        </ng-container>
+
+        <!-- Titel Column -->
+        <ng-container matColumnDef="titel">
+          <th mat-header-cell *matHeaderCellDef> Titel </th>
+          <td mat-cell *matCellDef="let element"> {{element.titel}} </td>
+        </ng-container>
+
+        <!-- Cursisten Column -->
+        <ng-container matColumnDef="cursisten">
+          <th mat-header-cell *matHeaderCellDef> Cursisten </th>
+          <td mat-cell *matCellDef="let element"> {{element.aantalCursisten}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+    </mat-card-content>
+  </mat-card>
+
+
+
+
+

@@ -114,6 +114,7 @@
   <ItemGroup>
     <Compile Include="CursussenControllerTest.cs" />
     <Compile Include="Extensions\CursusBuilder.cs" />
+    <Compile Include="FileUploadUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +130,18 @@
       <Project>{6DB3605C-ED03-469E-9F98-2CC9B343AA51}</Project>
       <Name>CursusAdministratie.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestFiles\fout1.txt" />
+    <Content Include="TestFiles\fout2.txt" />
+    <Content Include="TestFiles\fout3.txt" />
+    <Content Include="TestFiles\fout4.txt" />
+    <Content Include="TestFiles\fout5.txt" />
+    <Content Include="TestFiles\goedvoorbeeld.txt" />
+    <Content Include="TestFiles\goedvoorbeeld2.txt" />
+    <Content Include="TestFiles\goedvoorbeeld3.txt" />
+    <Content Include="TestFiles\goedvoorbeeld4.txt" />
+    <Content Include="TestFiles\goedvoorbeeld5.txt" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

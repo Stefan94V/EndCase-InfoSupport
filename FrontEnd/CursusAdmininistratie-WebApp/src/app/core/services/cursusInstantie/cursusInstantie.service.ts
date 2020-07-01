@@ -22,4 +22,8 @@ export class CursusInstantieService {
     return this.http.get<CursusInstantie[]>(this.baseUrl + this.controllerName);
   }
 
+  getCursusInstantiesByWeekAndYear(year: number, week: number): Observable<CursusInstantie[]> {
+    return this.http.get<CursusInstantie[]>(this.baseUrl + this.controllerName + `/?year=${year}&week=${week}`);
+  }
+
 }

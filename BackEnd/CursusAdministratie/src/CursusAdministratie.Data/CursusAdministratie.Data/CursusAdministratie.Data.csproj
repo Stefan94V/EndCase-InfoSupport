@@ -63,6 +63,18 @@
     <Compile Include="Migrations\202006300650216_InstantieChange.Designer.cs">
       <DependentUpon>202006300650216_InstantieChange.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007011159137_favorite.cs" />
+    <Compile Include="Migrations\202007011159137_favorite.Designer.cs">
+      <DependentUpon>202007011159137_favorite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007011228035_favoriteyeartojaar.cs" />
+    <Compile Include="Migrations\202007011228035_favoriteyeartojaar.Designer.cs">
+      <DependentUpon>202007011228035_favoriteyeartojaar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007011326263_favoritesweg.cs" />
+    <Compile Include="Migrations\202007011326263_favoritesweg.Designer.cs">
+      <DependentUpon>202007011326263_favoritesweg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cursist.cs" />
     <Compile Include="Models\Cursus.cs" />
@@ -94,6 +106,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006300650216_InstantieChange.resx">
       <DependentUpon>202006300650216_InstantieChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007011159137_favorite.resx">
+      <DependentUpon>202007011159137_favorite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007011228035_favoriteyeartojaar.resx">
+      <DependentUpon>202007011228035_favoriteyeartojaar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007011326263_favoritesweg.resx">
+      <DependentUpon>202007011326263_favoritesweg.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -14,3 +14,6 @@ C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdmin
 C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.csproj.GenerateResource.cache
 C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.Migrations.kleineaanpassing.resources
 C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.Migrations.InstantieChange.resources
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.Migrations.favorite.resources
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.Migrations.favoriteyeartojaar.resources
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.Migrations.favoritesweg.resources

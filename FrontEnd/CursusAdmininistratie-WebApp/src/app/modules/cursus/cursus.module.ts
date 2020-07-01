@@ -18,11 +18,18 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 
 import { CursusListComponent } from '../cursus/cursus-list/cursus-list.component';
+import { CursusWeekoverviewComponent } from '../cursus/cursus-weekoverview/cursus-weekoverview.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { WeeknumberPipe } from 'src/app/shared/pipes/weeknumber.pipe';
+import { RouterModule } from '@angular/router';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule,
+    BrowserModule,
     ReactiveFormsModule,
     MatInputModule,
     MatCardModule,
@@ -32,6 +39,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     MatProgressSpinnerModule,
     MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatTableModule,
     MatRadioModule,
     MatSlideToggleModule,
@@ -42,6 +51,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   declarations: [
     CursusComponent,
-    CursusListComponent]
+    CursusListComponent,
+    CursusWeekoverviewComponent,
+    WeeknumberPipe]
 })
 export class CursusModule { }

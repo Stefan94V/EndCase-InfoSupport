@@ -46,6 +46,24 @@ namespace CursusAdministratie.Api.Controllers
             return Ok(dto);
         }
 
+        [HttpGet]
+        public async Task<IHttpActionResult> GetAllByWeekAsync(int year, int week)
+        {
+            if (week < 0 || week > 52)
+                return BadRequest();
+
+            var cursussen = await _cursusService.GetAllByWeekAndYearAsync(year, week);
+
+            if (cursussen == null)
+            {
+                return BadRequest("Geen cursussen gevonden");
+            }
+
+            var dto = Mapper.Map<List<CursusInstantieToDetailsDto>>(cursussen);
+
+            return Ok(dto);
+        }
+
 
         [HttpGet]
         public async Task<IHttpActionResult> GetByIdAsync(int id)
