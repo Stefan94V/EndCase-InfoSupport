@@ -14,10 +14,8 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 })
 export class CursusWeekoverviewComponent implements OnInit {
 
-  displayedColumns: string[] = ['startDatum', 'duur', 'titel', 'cursisten'];
-  conceptColumns: string[] = ['startDatum', 'duur', 'titel'];
+  displayedColumns: string[] = ['nav', 'startDatum', 'duur', 'titel', 'cursisten'];
   cursussen: CursusInstantie[];
-  conceptCursussen: CursusInstantie[] = [];
   component = this;
   selectedDate = new Date();
 

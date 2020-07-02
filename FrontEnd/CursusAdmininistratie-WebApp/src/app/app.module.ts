@@ -16,6 +16,8 @@ import { CursusModule } from '../app/modules/cursus/cursus.module';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AlertService } from '../app/core/services/alert/alert.service';
 import { WeeknumberPipe } from '../app/shared/pipes/weeknumber.pipe';
+import { CursusInstantieService } from './core/services/cursusInstantie/cursusInstantie.service';
+import { CursistService } from '../app/core/services/cursist/cursist.service';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { WeeknumberPipe } from '../app/shared/pipes/weeknumber.pipe';
   ],
   providers: [
     CursusService,
+    CursistService,
+    CursusInstantieService,
     AlertService,
     WeeknumberPipe
   ],

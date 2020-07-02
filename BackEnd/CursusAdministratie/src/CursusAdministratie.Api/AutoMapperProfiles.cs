@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CursusAdministratie.Data.Models;
+using CursusAdministratie.Data.ViewModels.Cursist;
 using CursusAdministratie.Data.ViewModels.Cursus;
 using CursusAdministratie.Data.ViewModels.CursusInstantie;
 using System;
@@ -32,6 +33,9 @@ namespace CursusAdministratie.Api
                 .ForPath(x => x.Code, dest => dest.MapFrom(y => y.Cursus.Code))
                 .ForPath(x => x.Titel, dest => dest.MapFrom(y => y.Cursus.Titel))
                 .ForPath(x => x.Duur, dest => dest.MapFrom(y => y.Cursus.Duur));
+
+
+            CreateMap<CursistToCreateDto, Cursist>();
         }
     }
 }

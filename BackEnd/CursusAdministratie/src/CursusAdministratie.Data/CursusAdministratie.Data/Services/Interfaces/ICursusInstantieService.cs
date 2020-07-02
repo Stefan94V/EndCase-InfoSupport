@@ -13,6 +13,7 @@ namespace CursusAdministratie.Data.Services.Interfaces
         Task<CursusInstantie> GetAsync(int id);
         Task<List<CursusInstantie>> GetAllAsync();
         Task<List<CursusInstantie>> GetAllByWeekAndYearAsync(int year, int week);
+        Task<CursusInstantie> AddCursist(int id, Cursist cursist);
         Task<CursusInstantieUploadResultSet> CreateRangeAsync(List<CursusInstantie> cursusInstanties);
     }
 }

@@ -1,0 +1,58 @@
+<mat-progress-spinner class="spinner"
+   mode="indeterminate" color="primary" *ngIf="cursusInstantieSpinner" >
+  </mat-progress-spinner>
+
+<mat-card *ngIf="!cursusInstantieSpinner">
+  <mat-card-header>
+    <mat-card-title>{{cursusInstantie.titel}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    <h2>Code</h2>
+    <h5>{{cursusInstantie.code}}</h5>
+
+    <h2>Duur</h2>
+    <h5>{{cursusInstantie.duur}} dagen</h5>
+
+    <h2>Startdatum</h2>
+    <h5>{{cursusInstantie.startDatum | date: 'dd/MM/yyyy'}}</h5>
+
+    <button class="ci-save-button" mat-raised-button type="submit" color="primary"
+
+    (click)="addCursistToggle()" >Cursist toevoegen</button>
+
+  </mat-card-content>
+</mat-card>
+
+
+<mat-card *ngIf="addCursistToggled">
+  <mat-card-header>
+    <mat-card-title>Cursist toevoegen</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form *ngIf="!cursusInstantieSpinner"
+    class="example-form" [formGroup]="cursistForm">
+        <div
+        fxLayout="row wrap" fxLayoutGap="32px" fxLayoutAlign="flex-start"
+        fxLayout.xs="column" fxLayoutGap.xs="" fxLayoutAlign.xs="flex-start">
+          <!-- Naam -->
+          <mat-form-field fxFlex="100">
+            <input matInput placeholder="Naam" formControlName="naam" naam >
+            <mat-error *ngIf="cursistForm.get('naam').errors && cursistForm.get('naam').touched">Vul een naam in</mat-error>
+          </mat-form-field>
+          <!-- Achternaam -->
+          <mat-form-field fxFlex="100">
+            <input matInput placeholder="Achternaam" formControlName="achternaam" achternaam >
+            <mat-error *ngIf="cursistForm.get('achternaam').errors && cursistForm.get('achternaam').touched">Vul een achternaam in</mat-error>
+          </mat-form-field>
+          </div>
+      <div class="buttons">
+      <button class="ci-save-button" mat-raised-button type="submit" color="primary"
+        [disabled]="!cursistForm.valid"
+        (click)="save()" >Toevoegen</button>
+      </div>
+    </form>
+  </mat-card-content>
+
+
+</mat-card>

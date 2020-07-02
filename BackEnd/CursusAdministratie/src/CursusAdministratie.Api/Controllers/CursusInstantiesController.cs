@@ -4,11 +4,8 @@ using CursusAdministratie.Data;
 using CursusAdministratie.Data.Services.Implementations;
 using CursusAdministratie.Data.Services.Interfaces;
 using CursusAdministratie.Data.ViewModels.CursusInstantie;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace CursusAdministratie.Api.Controllers
@@ -17,24 +14,24 @@ namespace CursusAdministratie.Api.Controllers
     [AllowCrossSite]
     public class CursusInstantiesController : ApiController
     {
-        private readonly ICursusInstantieService _cursusService;
+        private readonly ICursusInstantieService _cursusInstantieService;
 
-        public CursusInstantiesController(ICursusInstantieService _cursusService)
+        public CursusInstantiesController(ICursusInstantieService cursusInstantieService)
         {
-            this._cursusService = _cursusService;
+            _cursusInstantieService = cursusInstantieService;
         }
 
         readonly ICursusInstantieService cursusService = new CursusInstantieService(new ApplicationDbContext());
 
         public CursusInstantiesController()
         {
-            _cursusService = cursusService;
+            _cursusInstantieService = cursusService;
         }
 
         [HttpGet]
         public async Task<IHttpActionResult> GetAllAsync()
         {
-            var cursussen = await _cursusService.GetAllAsync();
+            var cursussen = await _cursusInstantieService.GetAllAsync();
 
             if (cursussen == null)
             {
@@ -49,7 +46,7 @@ namespace CursusAdministratie.Api.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> GetAllByWeekAsync(int year, int week)
         {
-            var cursussen = await _cursusService.GetAllByWeekAndYearAsync(year, week);
+            var cursussen = await _cursusInstantieService.GetAllByWeekAndYearAsync(year, week);
 
             if (cursussen == null)
             {
@@ -65,7 +62,7 @@ namespace CursusAdministratie.Api.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> GetByIdAsync(int id)
         {
-            var cursus = await _cursusService.GetAsync(id);
+            var cursus = await _cursusInstantieService.GetAsync(id);
 
             if (cursus == null)
             {

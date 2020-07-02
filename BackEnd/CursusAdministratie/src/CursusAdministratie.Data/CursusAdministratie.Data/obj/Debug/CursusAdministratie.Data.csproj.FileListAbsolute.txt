@@ -17,3 +17,4 @@ C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdmin
 C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.Migrations.favorite.resources
 C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.Migrations.favoriteyeartojaar.resources
 C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.Migrations.favoritesweg.resources
+C:\Users\stefanvasilev\Documents\EndCase\EndCase-InfoSupport\BackEnd\CursusAdministratie\src\CursusAdministratie.Data\CursusAdministratie.Data\obj\Debug\CursusAdministratie.Data.Migrations.cursusinstantiecursistmanytomanyset.resources

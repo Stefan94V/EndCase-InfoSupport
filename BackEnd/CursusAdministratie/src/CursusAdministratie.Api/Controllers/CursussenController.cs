@@ -19,9 +19,9 @@ namespace CursusAdministratie.Api.Controllers
     {
         private readonly ICursusService _cursusService;
 
-        public CursussenController(ICursusService _cursusService)
+        public CursussenController(ICursusService cursusService)
         {
-            this._cursusService = _cursusService;
+            this._cursusService = cursusService;
         }
 
         readonly ICursusService cursusService = new CursusService(new ApplicationDbContext());

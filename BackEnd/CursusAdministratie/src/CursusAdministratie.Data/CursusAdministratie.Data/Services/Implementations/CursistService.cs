@@ -20,6 +20,7 @@ namespace CursusAdministratie.Data.Services.Implementations
 
         public async Task<Cursist> CreateAsync(Cursist cursist)
         {
+
             _context.Cursisten.Add(cursist);
 
             await _context.SaveChangesAsync();
@@ -31,6 +32,18 @@ namespace CursusAdministratie.Data.Services.Implementations
         {
             return await _context.Cursisten
                 .ToListAsync();
+        }
+
+        public async Task<List<Cursist>> GetAllByCursusInstantie(int id)
+        {
+             var ci = await _context.CursusInstanties
+                .Include(x => x.Cursisten)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (ci == null)
+                return null;
+
+            return ci.Cursisten.ToList();
         }
 
         public async Task<Cursist> GetAsync(int id)

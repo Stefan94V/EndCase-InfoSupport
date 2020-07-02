@@ -24,6 +24,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { WeeknumberPipe } from 'src/app/shared/pipes/weeknumber.pipe';
 import { RouterModule } from '@angular/router';
 import { MatNativeDateModule } from '@angular/material/core';
+import { CursusinstantieDetailComponent } from '../cursus/cursusinstantie-detail/cursusinstantie-detail.component';
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import { MatNativeDateModule } from '@angular/material/core';
   declarations: [
     CursusComponent,
     CursusListComponent,
+    CursusinstantieDetailComponent,
     CursusWeekoverviewComponent,
     WeeknumberPipe]
 })

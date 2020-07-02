@@ -75,6 +75,10 @@
     <Compile Include="Migrations\202007011326263_favoritesweg.Designer.cs">
       <DependentUpon>202007011326263_favoritesweg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007021335537_cursusinstantiecursistmanytomanyset.cs" />
+    <Compile Include="Migrations\202007021335537_cursusinstantiecursistmanytomanyset.Designer.cs">
+      <DependentUpon>202007021335537_cursusinstantiecursistmanytomanyset.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cursist.cs" />
     <Compile Include="Models\Cursus.cs" />
@@ -86,6 +90,8 @@
     <Compile Include="Services\Interfaces\ICursistService.cs" />
     <Compile Include="Services\Interfaces\ICursusInstantieService.cs" />
     <Compile Include="Services\Interfaces\ICursusService.cs" />
+    <Compile Include="ViewModels\Cursist\CursistToCreateDto.cs" />
+    <Compile Include="ViewModels\Cursist\CursistToDetailsDto.cs" />
     <Compile Include="ViewModels\CursusInstantie\CursusInstantieToDetailsDto.cs" />
     <Compile Include="ViewModels\CursusInstantie\CursusInstantieUploadedResultSetDto.cs" />
     <Compile Include="ViewModels\CursusInstantie\CursusInstantieUploadResultSet.cs" />
@@ -116,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007011326263_favoritesweg.resx">
       <DependentUpon>202007011326263_favoritesweg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007021335537_cursusinstantiecursistmanytomanyset.resx">
+      <DependentUpon>202007021335537_cursusinstantiecursistmanytomanyset.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -34,11 +34,21 @@
     </mat-card-header>
 
     <mat-card-content>
-        <mat-progress-spinner class="spinner"
+      <mat-progress-spinner class="spinner"
         mode="indeterminate" color="primary" *ngIf="isLoading" >
       </mat-progress-spinner>
       <!-- TABLE -->
       <table mat-table [dataSource]="cursussen" class="mat-elevation-z8 cursussen-table" *ngIf="!isLoading">
+        <!-- Navigate Column -->
+        <ng-container matColumnDef="nav">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-mini-fab aria-label="Example icon button with a home icon"  [routerLink]="['/cursus/instantie', element.id]" >
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
         <!-- Start Column -->
         <ng-container matColumnDef="startDatum">
           <th mat-header-cell *matHeaderCellDef> Start </th>
@@ -60,7 +70,7 @@
         <!-- Cursisten Column -->
         <ng-container matColumnDef="cursisten">
           <th mat-header-cell *matHeaderCellDef> Cursisten </th>
-          <td mat-cell *matCellDef="let element"> {{element.aantalCursisten}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.aantalCursisten}}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -112,6 +112,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CursistenControllerTest.cs" />
     <Compile Include="CurssusInstantieControllerTest.cs" />
     <Compile Include="CursussenControllerTest.cs" />
     <Compile Include="Extensions\CursusBuilder.cs" />

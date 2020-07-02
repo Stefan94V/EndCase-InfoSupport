@@ -16,7 +16,9 @@ namespace CursusAdministratie.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-          
+            modelBuilder.Entity<CursusInstantie>()
+                 .HasMany(x => x.Cursisten)
+                 .WithMany(x => x.Cursussen);
                 
             base.OnModelCreating(modelBuilder);
         }

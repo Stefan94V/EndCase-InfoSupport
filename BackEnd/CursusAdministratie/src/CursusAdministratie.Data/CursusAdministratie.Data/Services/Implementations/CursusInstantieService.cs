@@ -19,6 +19,22 @@ namespace CursusAdministratie.Data.Services.Implementations
             _context = context;
         }
 
+        public async Task<CursusInstantie> AddCursist(int id, Cursist cursist)
+        {
+            var ci = await _context.CursusInstanties
+                .Include(x => x.Cursisten)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (ci == null)
+                return null;
+
+            ci.Cursisten.Add(cursist);
+
+            await _context.SaveChangesAsync();
+
+            return ci;
+        }
+
         public async Task<CursusInstantieUploadResultSet> CreateRangeAsync(List<CursusInstantie> cursusInstanties)
         {
             var duplicates = new List<CursusInstantie>();
@@ -90,6 +106,7 @@ namespace CursusAdministratie.Data.Services.Implementations
 
             // Get data
             var cursussen = await _context.CursusInstanties
+                .Include(x => x.Cursisten)
                 .ToListAsync();
             
             // Filter if both sundays match (equals same week)
