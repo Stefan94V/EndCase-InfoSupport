@@ -39,4 +39,13 @@ export class CursusService {
       return this.http
         .post(this.baseUrl + '/FileUpload/', formData);
   }
+
+  uploadCursusInRange(files: File[], start: Date, end: Date) {
+    var formData = new FormData();
+    Array.from(files).forEach(f => formData.append("files", f));
+    formData.append('startDatum', start.toDateString());
+    formData.append('eindDatum', end.toDateString());
+    return this.http
+      .post(this.baseUrl + '/FileUpload/', formData);
+}
 }

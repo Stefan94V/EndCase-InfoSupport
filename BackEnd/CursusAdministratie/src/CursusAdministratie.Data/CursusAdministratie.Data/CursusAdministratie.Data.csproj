@@ -92,6 +92,7 @@
     <Compile Include="ViewModels\Cursus\CursusToCreateDto.cs" />
     <Compile Include="ViewModels\Cursus\CursusToDetailsDto.cs" />
     <Compile Include="ViewModels\Cursus\CursusToUpdateDto.cs" />
+    <Compile Include="ViewModels\FileUpload\FileUploadDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { CursusService } from 'src/app/core/services/cursus/cursus.service';
 import { AlertService } from 'src/app/core/services/alert/alert.service';
 import { WeeknumberPipe } from 'src/app/shared/pipes/weeknumber.pipe';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 
 @Component({
@@ -19,11 +20,16 @@ export class CursusListComponent implements OnInit {
   conceptCursussen: CursusInstantie[] = [];
   component = this;
 
+
   cursussenForm: FormGroup;
 
   isLoading = true;
   openFileUploader = false;
   showConcept = false;
+  dateFilterToggle = false;
+
+  selectedStartDate = new Date();
+  selectedEndDate = new Date();
 
   constructor(
     private cursusInstantieService: CursusInstantieService,
@@ -77,24 +83,59 @@ export class CursusListComponent implements OnInit {
     };
   }
 
+  changeDateToggled(type: string, event: MatDatepickerInputEvent<Date>) {
+
+    if(type === 'start'){
+        this.selectedStartDate = new Date(event.value);
+    }else if(type === 'end') {
+      this.selectedEndDate = new Date(event.value);
+    }
+  }
+
+  toggleDateFilter() {
+    this.dateFilterToggle = !this.dateFilterToggle;
+  }
+
   upload(files: File[]) {
     this.openFileUploader = false;
     this.isLoading = true;
-    this.cursusService.uploadCursus(files).subscribe((cs: {
-      duplicates: CursusInstantie[],
-      uploaded: CursusInstantie[],
-      message: string
-    }) => {
-      this.cursussen = this.cursussen.concat(cs.uploaded);
-      if(cs.message != ''){
-      this.alerService.errorMessage(`${cs.message} Er zijn geen cursusinstanties toegevoegd.`);
-      }else{
-        const unique_cursussen = [...new Set(cs.uploaded.map(item => item.code))];
 
-        this.alerService.successMessage(`Er zijn ${unique_cursussen.length} cursussen, en ${cs.uploaded.length} cursusinstanties toegevoegd. Er zijn ${cs.duplicates.length} duplicaten gevonden`);
-      }
-      this.isLoading = false;
-    });
+    if (this.dateFilterToggle){
+      console.log('upload met dates');
+      this.cursusService.uploadCursusInRange(files, this.selectedStartDate, this.selectedEndDate).subscribe((cs: {
+        duplicates: CursusInstantie[],
+        uploaded: CursusInstantie[],
+        message: string
+      }) => {
+        this.cursussen = this.cursussen.concat(cs.uploaded);
+        if(cs.message != ''){
+        this.alerService.errorMessage(`${cs.message} Er zijn geen cursusinstanties toegevoegd.`);
+        }else{
+          const unique_cursussen = [...new Set(cs.uploaded.map(item => item.code))];
+
+          this.alerService.successMessage(`Er zijn ${unique_cursussen.length} cursussen, en ${cs.uploaded.length} cursusinstanties toegevoegd. Er zijn ${cs.duplicates.length} duplicaten gevonden`);
+        }
+        this.isLoading = false;
+      });
+    }else{
+      console.log('upload zonder dates');
+
+      this.cursusService.uploadCursus(files).subscribe((cs: {
+        duplicates: CursusInstantie[],
+        uploaded: CursusInstantie[],
+        message: string
+      }) => {
+        this.cursussen = this.cursussen.concat(cs.uploaded);
+        if(cs.message != ''){
+        this.alerService.errorMessage(`${cs.message} Er zijn geen cursusinstanties toegevoegd.`);
+        }else{
+          const unique_cursussen = [...new Set(cs.uploaded.map(item => item.code))];
+
+          this.alerService.successMessage(`Er zijn ${unique_cursussen.length} cursussen, en ${cs.uploaded.length} cursusinstanties toegevoegd. Er zijn ${cs.duplicates.length} duplicaten gevonden`);
+        }
+        this.isLoading = false;
+      });
+    }
   }
 
 

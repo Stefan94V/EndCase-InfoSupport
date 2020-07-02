@@ -56,5 +56,20 @@
       <label for=FileUploader ><input id=FileUploader type="file" multiple="false" (change)="upload($event.target.files)" /></label>
       <button class="" mat-raised-button type="submit" color="warn" [disabled]="!cursussenForm.valid">Upload</button>
     </form>
+    <div *ngIf="dateFilterToggle">
+    <mat-form-field appearance="fill">
+      <mat-label>Selecteer een range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date" (dateChange)="changeDateToggled('start', $event)">
+        <input matEndDate placeholder="End date" (dateChange)="changeDateToggled('end', $event)">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+  </div>
+
+    <button class="add-files-button" mat-raised-button type="submit" color="warn"
+    (click)="toggleDateFilter()"
+  >Filteren op datum</button>
   </mat-card-content>
 </mat-card>

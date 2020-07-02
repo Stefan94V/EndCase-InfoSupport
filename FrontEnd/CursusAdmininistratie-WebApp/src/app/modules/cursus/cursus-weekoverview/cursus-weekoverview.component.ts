@@ -49,13 +49,20 @@ export class CursusWeekoverviewComponent implements OnInit {
     if(this.selectedYear !== 0){
       this.selectedYear = this.routeYear;
     }else if(this.routeYear !== 0 && this.routeWeek !== 0) {
-      this.selectedWeek = this.routeWeek;
-      this.selectedYear = this.routeYear;
+      const isValid = this.checkWeeknumber(this.routeYear, this.routeWeek);
+
+      if(isValid){
+        this.selectedWeek = this.routeWeek;
+        this.selectedYear = this.routeYear;
+      }else{
+        this.selectedWeek = this.weeknumber.transform(this.selectedDate);
+        this.selectedYear = this.selectedDate.getFullYear();
+        this.alerService.errorMessage('Ingevulde week is ongeldig');
+      }
     }else{
       this.selectedWeek = this.weeknumber.transform(this.selectedDate);
       this.selectedYear = this.selectedDate.getFullYear();
     }
-
     this.loadData();
   }
 
@@ -72,7 +79,13 @@ export class CursusWeekoverviewComponent implements OnInit {
   }
 
   nextWeekToggled() {
-    if  (this.selectedWeek === 52){
+
+    console.log(`Week ${this.selectedWeek} is ${this.checkWeeknumber(this.selectedYear, this.selectedWeek)}`);
+    if(this.checkWeeknumber(this.selectedYear, this.selectedWeek + 1)) {
+
+      this.selectedWeek ++;
+    } else if (this.checkWeeknumber(this.selectedYear, this.selectedWeek)){
+
       this.selectedWeek = 1;
       this.selectedYear ++;
     }
@@ -83,6 +96,8 @@ export class CursusWeekoverviewComponent implements OnInit {
   }
 
   previousWeekToggled() {
+
+
     if  (this.selectedWeek === 1){
       this.selectedWeek = 52;
       this.selectedYear --;
@@ -91,6 +106,16 @@ export class CursusWeekoverviewComponent implements OnInit {
      this.selectedWeek --;
     }
     this.loadData();
+  }
+
+  checkWeeknumber(year: number, week: number) {
+    let lastDay = new Date(`12/31/${year}`);
+    const lastWeek = this.weeknumber.transform(lastDay);
+    if(week > lastWeek){
+      return false;
+    }else{
+      return true;
+    }
   }
 
   changeDateToggled(type: string, event: MatDatepickerInputEvent<Date>) {

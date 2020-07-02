@@ -35,8 +35,46 @@ namespace CursusAdministratie.Api.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> UploadFile()
         {
+            // Check for files, get only one
             var file = HttpContext.Current.Request.Files.Count > 0 ?
                    HttpContext.Current.Request.Files[0] : null;
+
+            if (file == null)
+                return Ok(new CursusInstantieUploadedResultSetDto
+                {
+                    Uploaded = new List<CursusInstantieToDetailsDto>(),
+                    Duplicates = new List<CursusInstantieToDetailsDto>(),
+                    Message = "|Geen file geselecteerd|",
+                });
+            // Extensions allowed to upload
+            var extensies = new List<string>
+            {
+                ".txt"
+            };
+
+            if (!extensies.Contains(Path.GetExtension(file.FileName)))
+                return Ok(new CursusInstantieUploadedResultSetDto
+                {
+                    Uploaded = new List<CursusInstantieToDetailsDto>(),
+                    Duplicates = new List<CursusInstantieToDetailsDto>(),
+                    Message = $"|{Path.GetExtension(file.FileName)} is geen geldige extensie.|",
+                });
+
+            // Filter on date
+            var content = HttpContext.Current.Request;
+            var start = new DateTime();
+            var end = new DateTime();
+            var hasDateFilter = false;
+
+            if (content.Form.Count > 0)
+            {
+                var startString = content.Form.GetValues("startDatum").FirstOrDefault();
+                var endString = content.Form.GetValues("eindDatum").FirstOrDefault();
+
+                start = DateTime.Parse(startString);
+                end = DateTime.Parse(endString);
+                hasDateFilter = true;
+            }
 
             if (file != null && file.ContentLength > 0)
             {
@@ -49,6 +87,14 @@ namespace CursusAdministratie.Api.Controllers
                 }
 
                 var lineToCursusModel = _linesToCursussen(lines.ToArray());
+
+                if (hasDateFilter)
+                {
+                    lineToCursusModel.Cursussen = lineToCursusModel.Cursussen
+                        .Where(x => x.StartDatum.Date >= start.Date)
+                        .Where(x => x.StartDatum.Date <= end.Date)
+                        .ToList();
+                }
 
                 if (lineToCursusModel.Cursussen.Any())
                 {
@@ -110,9 +156,9 @@ namespace CursusAdministratie.Api.Controllers
                 if (words.Length == 2 && stop == false && lineCount != 4)
                 {
                     // Check voor de Titel
-                    if (words[0].Equals("Titel")) 
+                    if (words[0].Equals("Titel"))
                     {
-                        if (lineCount == 0) 
+                        if (lineCount == 0)
                         {
                             currentCursus = new CursusInstantie();
                             currentCursus.Cursus = new Cursus
@@ -148,7 +194,7 @@ namespace CursusAdministratie.Api.Controllers
                     else if (words[0].Equals("Duur") && newCursus == false)
                     {
                         // Waarde moet in het juiste formaat zijn {nummer: Dagen}
-                        if (words[1].Contains("dagen") )
+                        if (words[1].Contains("dagen"))
                         {
                             var duurSplit = words[1].Split(' ');
                             int duur;

@@ -49,9 +49,6 @@ namespace CursusAdministratie.Api.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> GetAllByWeekAsync(int year, int week)
         {
-            if (week < 0 || week > 52)
-                return BadRequest();
-
             var cursussen = await _cursusService.GetAllByWeekAndYearAsync(year, week);
 
             if (cursussen == null)

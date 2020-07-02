@@ -32,12 +32,18 @@ namespace CursusAdministratie.Data.Services.Implementations
                 }
                 else
                 {
-                    var isDup = await _context.Cursussen.AnyAsync(x => x.Code == ci.Cursus.Code);
-                    if (isDup && toReturn.Any(c => c.Cursus.Code == ci.Cursus.Code))
+                    var isDup = await _context.Cursussen.AnyAsync(x => x.Code == ci.Cursus.Code && ci.Cursus.Duur == x.Duur);
+                    if (isDup || toReturn.Any(c => c.Cursus.Code == ci.Cursus.Code && c.Cursus.Duur == ci.Cursus.Duur))
                     {
+
                         var existingCursus = await _context.Cursussen
                             .Include(x => x.CursusInstanties)
                             .FirstOrDefaultAsync(x => x.Code == ci.Cursus.Code);
+                        // If not in Database then it is in the list
+                        if(existingCursus == null) {
+                            existingCursus = toReturn.FirstOrDefault(c => c.Cursus.Code == ci.Cursus.Code && c.Cursus.Duur == ci.Cursus.Duur).Cursus;
+                        }
+
                         var instantie = new CursusInstantie
                         {
                             Cursus = existingCursus,
@@ -50,8 +56,8 @@ namespace CursusAdministratie.Data.Services.Implementations
                     }
                     else
                     {
-                        var dubCursus = toReturn.FirstOrDefault(x => x.Cursus.Code == ci.Cursus.Code) != null
-                                ? toReturn.FirstOrDefault(x => x.Cursus.Code == ci.Cursus.Code).Cursus
+                        var dubCursus = toReturn.FirstOrDefault(x => x.Cursus.Code == ci.Cursus.Code && x.Cursus.Duur == ci.Cursus.Duur) != null
+                                ? toReturn.FirstOrDefault(x => x.Cursus.Code == ci.Cursus.Code && x.Cursus.Duur == ci.Cursus.Duur).Cursus
                                 : ci.Cursus;
                         ci.Cursus = dubCursus;
                         _context.CursusInstanties.Add(ci);
