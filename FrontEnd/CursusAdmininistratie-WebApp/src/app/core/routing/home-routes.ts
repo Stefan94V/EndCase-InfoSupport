@@ -1,3 +1,4 @@
+
 import { Routes } from '@angular/router';
 import { HomeDefaultComponent } from '../../shared/layout/home/home-default/home-default.component';
 import { CursusComponent } from '../../modules/cursus/cursus/cursus.component';

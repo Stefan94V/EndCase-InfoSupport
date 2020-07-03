@@ -7,6 +7,8 @@ import { AlertService } from 'src/app/core/services/alert/alert.service';
 import { WeeknumberPipe } from 'src/app/shared/pipes/weeknumber.pipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import {Location} from '@angular/common';
+
 @Component({
   selector: 'app-cursus-weekoverview',
   templateUrl: './cursus-weekoverview.component.html',
@@ -36,6 +38,7 @@ export class CursusWeekoverviewComponent implements OnInit {
   constructor(
     private cursusInstantieService: CursusInstantieService,
     private cursusService: CursusService,
+    private location: Location,
     private alerService: AlertService,
     private router: Router,
     actRoute: ActivatedRoute,
@@ -64,6 +67,7 @@ export class CursusWeekoverviewComponent implements OnInit {
       this.selectedYear = this.selectedDate.getFullYear();
     }
     this.loadData();
+
   }
 
   loadData() {
@@ -71,6 +75,7 @@ export class CursusWeekoverviewComponent implements OnInit {
     this.cursusInstantieService.getCursusInstantiesByWeekAndYear(this.selectedYear, this.selectedWeek).subscribe(cs => {
       this.cursussen = cs;
       this.isLoading = false;
+      this.location.go(`cursus/weekoverzicht/${this.selectedYear}/${this.selectedWeek}`);
 
     }, error => {
       console.log(error);
@@ -92,7 +97,7 @@ export class CursusWeekoverviewComponent implements OnInit {
     else{
       this.selectedWeek ++;
     }
-    this.router.navigate([`cursus/weekoverzicht/${this.selectedYear}/${this.selectedWeek}`, {}]);
+    this.loadData();
   }
 
   previousWeekToggled() {
@@ -105,8 +110,8 @@ export class CursusWeekoverviewComponent implements OnInit {
     else{
      this.selectedWeek --;
     }
+    this.loadData();
 
-    this.router.navigate([`cursus/weekoverzicht/${this.selectedYear}/${this.selectedWeek}`, {}]);
   }
 
   checkWeeknumber(year: number, week: number) {
@@ -127,6 +132,7 @@ export class CursusWeekoverviewComponent implements OnInit {
     this.selectedYear = chosenDate.getFullYear();
     this.selectedDate = chosenDate;
     this.loadData();
+
   }
 
 }
