@@ -107,14 +107,24 @@ namespace CursusAdministratie.UnitTests
         [TestMethod]
         public async Task GetAllBCorrectyWeekShouldReturnOkResult()
         {
-            // ARRANGe
-            _cursusInstantieService.Setup(x => x.GetAllByWeekAndYearAsync(2020, 24));
+            // ARRANGE
+            var week = 24;
+            var year = 2020;
+            _cursusInstantieService.Setup(x => x.GetAllByWeekAndYearAsync(year, week))
+                .Returns(Task.FromResult(new List<CursusInstantie>() 
+                {
+                    new CursusInstantie() {  Id = 1, Cursus = CursusBuilder.GetCursus(1, "ABC", "Test1")},
+                    new CursusInstantie() {  Id = 2, Cursus = CursusBuilder.GetCursus(2, "DEF", "Test2")},
+                    new CursusInstantie() {  Id = 3, Cursus = CursusBuilder.GetCursus(3, "GHI", "Test3")},
+                }));
             // ACT
-            var result = await _cursusInstantieController.GetAllByWeekAsync(2020, 20);
+            var result = await _cursusInstantieController.GetAllByWeekAsync(year, week);
             var objectResult = result as OkNegotiatedContentResult<List<CursusInstantieToDetailsDto>>;
 
             // Assert
             Assert.IsNotNull(objectResult);
+            Assert.IsTrue(objectResult.Content.Count == 3);
+            Assert.IsNotNull(objectResult.Content.FirstOrDefault(x => x.Id == 3));
         }
 
         [TestMethod]
@@ -125,7 +135,7 @@ namespace CursusAdministratie.UnitTests
                 .Returns(Task.FromResult(It.IsAny<List<CursusInstantie>>()));
             // ACT
             var result = await _cursusInstantieController.GetAllByWeekAsync(2020, 20);
-            var objectResult = result as OkNegotiatedContentResult<List<CursusInstantieToDetailsDto>>;
+            var objectResult = result as BadRequestErrorMessageResult;
 
             // Assert
             Assert.IsNotNull(objectResult);

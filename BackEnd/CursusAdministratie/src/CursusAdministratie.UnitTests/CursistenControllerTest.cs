@@ -127,7 +127,7 @@ namespace CursusAdministratie.UnitTests
         public async Task CreateWithInValidCursistInstantieIdReturnsBadRequestResult()
         {
             // ARRANGE
-            var cursusToCreate = new Cursist { Naam = "Test1", Achternaam = "Test1", Cursussen = { It.IsAny<CursusInstantie>() } };
+            var cursusToCreate = new Cursist { Naam = "Test1", Achternaam = "Test1", Cursussen = new List<CursusInstantie>()  };
             _cursistService.Setup(x => x.CreateAsync(It.IsAny<Cursist>()))
                 .Returns(Task.FromResult(cursusToCreate));
             _cursistInstantieService.Setup(x => x.GetAsync(It.IsAny<int>()))
@@ -135,7 +135,7 @@ namespace CursusAdministratie.UnitTests
 
             var inputDto = new CursistToCreateDto { CursusInstantieId = 1, Achternaam = "Test1", Naam = "Test1" };
             // Act
-            var result = await _cursistenController.CreateAsync(It.IsAny<CursistToCreateDto>());
+            var result = await _cursistenController.CreateAsync(new CursistToCreateDto { CursusInstantieId = 1, Achternaam = "Test1", Naam = "Test1"});
             var objectResult = result as BadRequestErrorMessageResult;
 
             // Assert
