@@ -8,20 +8,30 @@
           <button mat-mini-fab aria-label="Example icon button with a home icon" (click)="previousWeekToggled()">
             <mat-icon>keyboard_arrow_left</mat-icon>
           </button>
-          <div class="weekText">Weekoverzicht week <b>{{selectedWeek}}</b> jaar <b>{{selectedYear}}</b></div>
-         <button mat-raised-button (click)="picker.open()">Verander Week</button>
+            <mat-form-field class="example-form-field">
+              <mat-label>Week</mat-label>
+              <input matInput type="number" [ngModel]="selectedWeek" min="0" max="54" (input)="weekChanged($event)">
+            </mat-form-field>
+            <mat-form-field class="example-form-field">
+              <mat-label>Jaar</mat-label>
+              <input matInput type="number" [ngModel]="selectedYear" min="1960" max="2050" (input)="yearChanged($event)">
+            </mat-form-field>
+
+
           <button mat-mini-fab aria-label="Example icon button with a home icon" (click)="nextWeekToggled()" >
             <mat-icon>keyboard_arrow_right</mat-icon>
           </button>
+          <button mat-raised-button (click)="picker.open()">Selecteer via Datum</button>
+          <div style="display:none">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Choose a date</mat-label>
+              <input matInput [matDatepicker]="picker" value="{{selectedDate}}" (dateChange)="changeDateToggled('change', $event)">
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
         </div>
         <div>
-          <div style="display:none">
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Choose a date</mat-label>
-          <input matInput [matDatepicker]="picker" value="{{selectedDate}}" (dateChange)="changeDateToggled('change', $event)">
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </div>
+
       </div>
 
       </div>

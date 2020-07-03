@@ -19,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { CursusListComponent } from '../cursus/cursus-list/cursus-list.component';
 import { CursusWeekoverviewComponent } from '../cursus/cursus-weekoverview/cursus-weekoverview.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { WeeknumberPipe } from 'src/app/shared/pipes/weeknumber.pipe';
 import { RouterModule } from '@angular/router';
@@ -31,6 +31,7 @@ import { CursusinstantieDetailComponent } from '../cursus/cursusinstantie-detail
     CommonModule,
     RouterModule,
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
     MatInputModule,
     MatCardModule,

@@ -70,6 +70,20 @@ export class CursusWeekoverviewComponent implements OnInit {
 
   }
 
+  weekChanged(value) {
+    console.log('ok');
+    console.log(value);
+    this.selectedWeek = value.target.value;
+    this.loadData();
+  }
+
+  yearChanged(value) {
+    console.log(value);
+    console.log(value.target.value);
+    this.selectedYear = value.target.value;
+    this.loadData();
+  }
+
   loadData() {
     this.isLoading = true;
     this.cursusInstantieService.getCursusInstantiesByWeekAndYear(this.selectedYear, this.selectedWeek).subscribe(cs => {
