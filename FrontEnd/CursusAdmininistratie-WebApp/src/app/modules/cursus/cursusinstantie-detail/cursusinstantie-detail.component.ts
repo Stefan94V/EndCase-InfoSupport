@@ -19,13 +19,15 @@ export class CursusinstantieDetailComponent implements OnInit {
   cursusInstantieSpinner = true;
   addCursistToggled = false;
 
+  fb = new FormBuilder();
+
   constructor(
     private cursusInstantieService: CursusInstantieService,
     private alerService: AlertService,
     actRoute: ActivatedRoute,
     private cursistService: CursistService,
     private router: Router,
-    private fb: FormBuilder) {
+    ) {
       this.id = actRoute.snapshot.params.id !== undefined ? actRoute.snapshot.params.id : '0';
      }
 

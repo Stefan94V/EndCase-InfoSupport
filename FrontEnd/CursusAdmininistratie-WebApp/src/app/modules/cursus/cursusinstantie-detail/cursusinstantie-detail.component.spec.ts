@@ -4,6 +4,13 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { CursusinstantieDetailComponent } from './cursusinstantie-detail.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { WeeknumberPipe } from 'src/app/shared/pipes/weeknumber.pipe';
+import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 describe('CursusinstantieDetailComponent', () => {
   let component: CursusinstantieDetailComponent;
@@ -11,7 +18,16 @@ describe('CursusinstantieDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CursusinstantieDetailComponent ]
+      declarations: [ CursusinstantieDetailComponent ],
+      imports: [
+      RouterModule.forRoot([]),
+      BrowserAnimationsModule,
+      HttpClientTestingModule,
+      HttpClientModule,
+      FormsModule,
+      MatSnackBarModule],
+      providers: [
+        WeeknumberPipe]
     })
     .compileComponents();
   }));
@@ -25,4 +41,5 @@ describe('CursusinstantieDetailComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

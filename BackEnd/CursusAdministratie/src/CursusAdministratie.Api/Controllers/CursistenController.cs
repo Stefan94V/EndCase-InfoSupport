@@ -41,9 +41,7 @@ namespace CursusAdministratie.Api.Controllers
             var cursussen = await _cursistSerivce.GetAllAsync();
 
             if (cursussen == null)
-            {
                 return BadRequest("Geen cursisten gevonden");
-            }
 
             var dto = Mapper.Map<List<CursistToDetailsDto>>(cursussen);
 
@@ -57,9 +55,7 @@ namespace CursusAdministratie.Api.Controllers
             var cursus = await _cursistSerivce.GetAsync(id);
 
             if (cursus == null)
-            {
                 return BadRequest("Geen cursist gevonden");
-            }
 
             var dto = Mapper.Map<CursistToDetailsDto>(cursus);
 
@@ -74,23 +70,17 @@ namespace CursusAdministratie.Api.Controllers
             var cursusInstantie = await _cursusInstantieService.GetAsync(dto.CursusInstantieId);
 
             if (cursusInstantieService == null)
-            {
                 return BadRequest("CursusInstantie is onbekend");
-            }
 
             var cursist = await _cursistSerivce.CreateAsync(cursusFromDto);
 
             if (cursist == null)
-            {
                 return BadRequest("Cursist aanmaken is mislukt");
-            }
 
             var addedDB = await _cursusInstantieService.AddCursist(dto.CursusInstantieId, cursist);
 
             if (addedDB == null)
-            {
                 return BadRequest("Cursist niet aan instantie kunnen toevoegen");
-            }
 
             var resultDto = Mapper.Map<CursistToDetailsDto>(cursist);
 
@@ -103,9 +93,7 @@ namespace CursusAdministratie.Api.Controllers
             var isRemoved = await _cursistSerivce.RemoveAsync(id);
 
             if (!isRemoved)
-            {
                 return BadRequest("Cursist verwijderd");
-            }
 
             return Ok();
         }

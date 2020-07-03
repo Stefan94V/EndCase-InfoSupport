@@ -4,6 +4,12 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { CursusWeekoverviewComponent } from './cursus-weekoverview.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RouterModule } from '@angular/router';
+import { WeeknumberPipe } from 'src/app/shared/pipes/weeknumber.pipe';
+import { FormsModule } from '@angular/forms';
 
 describe('CursusWeekoverviewComponent', () => {
   let component: CursusWeekoverviewComponent;
@@ -11,7 +17,15 @@ describe('CursusWeekoverviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CursusWeekoverviewComponent ]
+      declarations: [ CursusWeekoverviewComponent ],
+      imports: [
+      RouterModule.forRoot([]),
+      FormsModule,
+      HttpClientTestingModule,
+      HttpClientModule,
+      MatSnackBarModule,],
+      providers: [
+        WeeknumberPipe]
     })
     .compileComponents();
   }));

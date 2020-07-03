@@ -13,11 +13,9 @@ namespace CursusAdministratie.Api
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutoMapper.Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfiles>());
             UnityConfig.RegisterComponents();
         }
@@ -25,6 +23,10 @@ namespace CursusAdministratie.Api
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "*");
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS");
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Credentials", "true");
+            HttpContext.Current.Response.AddHeader("Vary", "Origin");
         }
     }
 }

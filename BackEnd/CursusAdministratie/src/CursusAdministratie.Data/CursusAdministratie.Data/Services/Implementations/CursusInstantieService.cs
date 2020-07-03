@@ -66,7 +66,7 @@ namespace CursusAdministratie.Data.Services.Implementations
                             CursusId = existingCursus.Id,
                             StartDatum = ci.StartDatum,
                         };
-
+                     
                         existingCursus.CursusInstanties.Add(instantie);
                         toReturn.Add(instantie);
                     }

@@ -17,6 +17,7 @@ export class CursusListComponent implements OnInit {
   displayedColumns: string[] = ['nav', 'startDatum', 'duur', 'titel', 'cursisten'];
   cursussen: CursusInstantie[];
   component = this;
+  files: File[];
 
 
   cursussenForm: FormGroup;
@@ -25,16 +26,18 @@ export class CursusListComponent implements OnInit {
   openFileUploader = false;
   showConcept = false;
   dateFilterToggle = false;
+  formIsValid = false;
 
   selectedStartDate = new Date();
   selectedEndDate = new Date();
+
+  fb = new FormBuilder();
 
   constructor(
     private cursusInstantieService: CursusInstantieService,
     private cursusService: CursusService,
     private alerService: AlertService,
-    private weeknumber: WeeknumberPipe,
-    private fb: FormBuilder) { }
+    private weeknumber: WeeknumberPipe) { }
 
   ngOnInit() {
     this.loadData();
@@ -94,13 +97,19 @@ export class CursusListComponent implements OnInit {
     this.dateFilterToggle = !this.dateFilterToggle;
   }
 
-  upload(files: File[]) {
+  setFiles(files: File[]) {
+    this.files = files;
+    this.formIsValid = true;
+  }
+
+  upload() {
     this.openFileUploader = false;
     this.isLoading = true;
+    this.formIsValid = false;
 
     if (this.dateFilterToggle){
       console.log('upload met dates');
-      this.cursusService.uploadCursusInRange(files, this.selectedStartDate, this.selectedEndDate).subscribe((cs: {
+      this.cursusService.uploadCursusInRange(this.files, this.selectedStartDate, this.selectedEndDate).subscribe((cs: {
         duplicates: CursusInstantie[],
         uploaded: CursusInstantie[],
         message: string
@@ -114,11 +123,13 @@ export class CursusListComponent implements OnInit {
           this.alerService.successMessage(`Er zijn ${unique_cursussen.length} cursussen, en ${cs.uploaded.length} cursusinstanties toegevoegd. Er zijn ${cs.duplicates.length} duplicaten gevonden`);
         }
         this.isLoading = false;
+      }, () => {
+        this.files = [];
       });
     }else{
       console.log('upload zonder dates');
 
-      this.cursusService.uploadCursus(files).subscribe((cs: {
+      this.cursusService.uploadCursus(this.files).subscribe((cs: {
         duplicates: CursusInstantie[],
         uploaded: CursusInstantie[],
         message: string
@@ -132,6 +143,8 @@ export class CursusListComponent implements OnInit {
           this.alerService.successMessage(`Er zijn ${unique_cursussen.length} cursussen, en ${cs.uploaded.length} cursusinstanties toegevoegd. Er zijn ${cs.duplicates.length} duplicaten gevonden`);
         }
         this.isLoading = false;
+      }, () => {
+        this.files = [];
       });
     }
   }

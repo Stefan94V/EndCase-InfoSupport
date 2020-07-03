@@ -6,6 +6,17 @@ export class AppPage {
   }
 
   getTitleText(): Promise<string> {
-    return element(by.css('app-root .content span')).getText() as Promise<string>;
+    return element(by.css('app-cursus-list mat-card-title #com_title')).getText() as Promise<string>;
   }
+
+  // getIets() {
+  //   let wrapper = element.all(by.tagName('mat-card'))
+  //     .filter(el => el.element(by.tagName('mat-card-title'))
+  //     .getText()
+  //     .then(text => {
+  //       console.log('looking if\'', text, '\'contains Classifications');
+  //       return text;
+  //     }));
+
+
 }

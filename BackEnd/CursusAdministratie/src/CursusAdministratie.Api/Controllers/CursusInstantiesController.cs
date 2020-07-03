@@ -34,9 +34,7 @@ namespace CursusAdministratie.Api.Controllers
             var cursussen = await _cursusInstantieService.GetAllAsync();
 
             if (cursussen == null)
-            {
                 return BadRequest("Geen cursussen gevonden");
-            }
 
             var dto = Mapper.Map<List<CursusInstantieToDetailsDto>>(cursussen);
 
@@ -49,9 +47,7 @@ namespace CursusAdministratie.Api.Controllers
             var cursussen = await _cursusInstantieService.GetAllByWeekAndYearAsync(year, week);
 
             if (cursussen == null)
-            {
                 return BadRequest("Geen cursussen gevonden");
-            }
 
             var dto = Mapper.Map<List<CursusInstantieToDetailsDto>>(cursussen);
 
@@ -65,9 +61,7 @@ namespace CursusAdministratie.Api.Controllers
             var cursus = await _cursusInstantieService.GetAsync(id);
 
             if (cursus == null)
-            {
                 return BadRequest("Geen cursus gevonden");
-            }
 
             var dto = Mapper.Map<CursusInstantieToDetailsDto>(cursus);
 

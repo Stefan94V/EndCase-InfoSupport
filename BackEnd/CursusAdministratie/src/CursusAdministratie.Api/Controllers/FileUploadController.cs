@@ -35,7 +35,7 @@ namespace CursusAdministratie.Api.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> UploadFile()
         {
-            // Check for files, get only one
+            // Controle for bestanden, haal 1 op
             var file = HttpContext.Current.Request.Files.Count > 0 ?
                    HttpContext.Current.Request.Files[0] : null;
 
@@ -46,7 +46,7 @@ namespace CursusAdministratie.Api.Controllers
                     Duplicates = new List<CursusInstantieToDetailsDto>(),
                     Message = "|Geen file geselecteerd|",
                 });
-            // Extensions allowed to upload
+            // Extensies toegestaan om up te loaden
             var extensies = new List<string>
             {
                 ".txt"
@@ -60,7 +60,7 @@ namespace CursusAdministratie.Api.Controllers
                     Message = $"|{Path.GetExtension(file.FileName)} is geen geldige extensie.|",
                 });
 
-            // Filter on date
+            // Filter op datum
             var content = HttpContext.Current.Request;
             var start = new DateTime();
             var end = new DateTime();
@@ -70,6 +70,21 @@ namespace CursusAdministratie.Api.Controllers
             {
                 var startString = content.Form.GetValues("startDatum").FirstOrDefault();
                 var endString = content.Form.GetValues("eindDatum").FirstOrDefault();
+
+                if(String.IsNullOrEmpty(startString))
+                    return Ok(new CursusInstantieUploadedResultSetDto
+                    {
+                        Uploaded = new List<CursusInstantieToDetailsDto>(),
+                        Duplicates = new List<CursusInstantieToDetailsDto>(),
+                        Message = "|Geen StartDatum geselecteerd|",
+                    });
+                else if(String.IsNullOrEmpty(endString))
+                    return Ok(new CursusInstantieUploadedResultSetDto
+                    {
+                        Uploaded = new List<CursusInstantieToDetailsDto>(),
+                        Duplicates = new List<CursusInstantieToDetailsDto>(),
+                        Message = "|Geen EindDatum geselecteerd|",
+                    });
 
                 start = DateTime.Parse(startString);
                 end = DateTime.Parse(endString);
@@ -144,7 +159,7 @@ namespace CursusAdministratie.Api.Controllers
             var errorsMessages = ""; // String met error messages
 
             // Counters
-            var stop = false; // Check voor en foutmelding, indien aanwezig stopt het met verder zoeken
+            var stop = false; // Check voor een foutmelding, indien aanwezig stopt het met verder zoeken
             var lineCount = 0; // Check in welke volgorde van het format het momenteel is
             var rijnummer = 1; // Check in welke rij de counter is van het document zelf
 
@@ -193,7 +208,7 @@ namespace CursusAdministratie.Api.Controllers
                     // Check voor de Duur
                     else if (words[0].Equals("Duur") && newCursus == false)
                     {
-                        // Waarde moet in het juiste formaat zijn {nummer: Dagen}
+                        // Waarde moet in het juiste formaat zijn {nummer dagen}
                         if (words[1].Contains("dagen"))
                         {
                             var duurSplit = words[1].Split(' ');
@@ -257,7 +272,6 @@ namespace CursusAdministratie.Api.Controllers
                                         stop = true;
                                         errorsMessages = $"|Strartdatum staat op de verkeerde volgorde op rij: {rijnummer}|";
                                     }
-
                                 }
                                 else
                                 {

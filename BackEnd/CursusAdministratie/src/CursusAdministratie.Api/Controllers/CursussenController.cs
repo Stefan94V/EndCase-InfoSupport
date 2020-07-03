@@ -70,18 +70,12 @@ namespace CursusAdministratie.Api.Controllers
             var cursus = await _cursusService.CreateAsync(cursusFromDto);
 
             if (cursus == null)
-            {
                 return BadRequest("Updaten is mislukt");
-            }
 
             var resultDto = Mapper.Map<CursusToDetailsDto>(cursus);
 
             return Created(resultDto.Id.ToString(), resultDto);
         }
-
-
-
-
 
         [HttpPut]
         public async Task<IHttpActionResult> UpdateAsync([FromBody] CursusToUpdateDto dto)
@@ -91,9 +85,7 @@ namespace CursusAdministratie.Api.Controllers
             var cursus = await _cursusService.UpdateAsync(cursusFromDto);
 
             if (cursus == null)
-            {
                 return BadRequest("Geen cursus gevonden");
-            }
 
 
             var resultDto = Mapper.Map<CursusToDetailsDto>(cursus);
@@ -107,9 +99,7 @@ namespace CursusAdministratie.Api.Controllers
             var isRemoved = await _cursusService.RemoveAsync(id);
 
             if (!isRemoved)
-            {
                 return BadRequest("Cursus verwijderd");
-            }
 
             return Ok();
         }

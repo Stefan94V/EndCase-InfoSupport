@@ -8,9 +8,10 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display title message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('CursusAdmininistratie-WebApp app is running!');
+    // page.getIets();
+    expect(page.getTitleText()).toEqual('Lijst van cursussen');
   });
 
   afterEach(async () => {

@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { CursusService } from 'src/app/core/services/cursus/cursus.service';
 import { AlertService } from 'src/app/core/services/alert/alert.service';
 import { WeeknumberPipe } from 'src/app/shared/pipes/weeknumber.pipe';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 @Component({
   selector: 'app-cursus-weekoverview',
@@ -31,13 +31,15 @@ export class CursusWeekoverviewComponent implements OnInit {
   openFileUploader = false;
   showConcept = false;
 
+  fb = new FormBuilder();
+
   constructor(
     private cursusInstantieService: CursusInstantieService,
     private cursusService: CursusService,
     private alerService: AlertService,
+    private router: Router,
     actRoute: ActivatedRoute,
-    private weeknumber: WeeknumberPipe,
-    private fb: FormBuilder) {
+    private weeknumber: WeeknumberPipe) {
       this.routeYear = actRoute.snapshot.params.year !== undefined ? actRoute.snapshot.params.year : 0;
       this.routeWeek = actRoute.snapshot.params.week !== undefined ? actRoute.snapshot.params.week : 0;
      }
@@ -90,7 +92,7 @@ export class CursusWeekoverviewComponent implements OnInit {
     else{
       this.selectedWeek ++;
     }
-    this.loadData();
+    this.router.navigate([`cursus/weekoverzicht/${this.selectedYear}/${this.selectedWeek}`, {}]);
   }
 
   previousWeekToggled() {
@@ -103,7 +105,8 @@ export class CursusWeekoverviewComponent implements OnInit {
     else{
      this.selectedWeek --;
     }
-    this.loadData();
+
+    this.router.navigate([`cursus/weekoverzicht/${this.selectedYear}/${this.selectedWeek}`, {}]);
   }
 
   checkWeeknumber(year: number, week: number) {

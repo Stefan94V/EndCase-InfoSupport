@@ -2,11 +2,13 @@
 
 import { TestBed, async, inject } from '@angular/core/testing';
 import { AlertService } from './alert.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('Service: Alert', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AlertService]
+      providers: [AlertService],
+      imports: [MatSnackBarModule]
     });
   });
 
