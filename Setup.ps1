@@ -1,13 +1,12 @@
-#!setup
-
+﻿set GIT_REDIRECT_STDERR=2
 echo "Setting up the folders"
 
-mkdir "EndCase"
-cd "EndCase"
+mkdir CASE_SV
+cd CASE_SV
 
 echo "Retrieving Project info"
 git clone "https://github.com/Stefan94V/EndCase-InfoSupport"
-
+cd EndCase-InfoSupport
 cd FrontEnd
 cd CursusAdmininistratie-WebApp
 
